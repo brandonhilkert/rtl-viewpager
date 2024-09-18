@@ -21,7 +21,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
     }
 }
 
@@ -31,12 +30,12 @@ localProperties.load(file('local.properties').newDataInputStream())
 String VERSION = '2.0.0'
 
 apply plugin: 'com.android.library'
-apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 
 repositories {
     jcenter()
     google()
+    maven { url "https://jitpack.io" }
 }
 
 android {
@@ -52,26 +51,6 @@ android {
 
 dependencies {
     compileOnly 'androidx.viewpager:viewpager:1.0.0'
-}
-
-bintray {
-    user = localProperties.getProperty('bintray.user')
-    key = localProperties.getProperty('bintray.key')
-    publications = ['releasePublication']
-    publish = false
-    pkg {
-        repo = 'maven'
-        name = 'com.duolingo.open:rtl-viewpager'
-        userOrg = 'duolingo'
-        issueTrackerUrl = 'https://github.com/duolingo/rtl-viewpager/issues'
-        vcsUrl = 'https://github.com/duolingo/rtl-viewpager.git'
-        licenses = ['Apache-2.0']
-        publicDownloadNumbers = true
-        version {
-            name = VERSION
-            vcsTag = 'v' + VERSION
-        }
-    }
 }
 
 publishing {
